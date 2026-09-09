@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#151715">
+<meta name="description" content="シャッタースピードを変えて、動きの写り方を体験。動くボールを撮って、止まる・流れるをくらべる教材。">
+<title>S / MOTION — シャッタースピードを体験する</title>
+<style>
+:root{color-scheme:dark;--ink:#151715;--panel:#1d211b;--text:#f1f2e9;--muted:#a7ada0;--line:#3b4035;--acid:#deed86;--stone:#d6d6c9;font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--text);-webkit-font-smoothing:antialiased}button,input{font:inherit}button{cursor:pointer}button,a,input{-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--acid);outline-offset:5px}button{touch-action:manipulation}a{color:inherit}button:disabled{cursor:wait;opacity:.55}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.site-shell{max-width:1440px;padding:0 4.4%;margin:20px auto 0}.lab{border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.viewfinder{position:relative;isolation:isolate;height:clamp(300px,35vw,430px);color:#30382c;background:#d9ddcf;overflow:hidden}.photo{width:100%;height:100%;display:block}.photo-top{position:absolute;inset:20px 23px auto;display:flex;align-items:center;justify-content:space-between;gap:12px;pointer-events:none}.photo-title{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500}.photo-title svg{width:19px;height:19px}.photo-settings{font-size:14px;font-family:monospace;font-variant-numeric:tabular-nums}.photo-settings span{color:#69715e;margin-left:10px}.corner{position:absolute;width:19px;height:19px;border:1px solid #64705766;pointer-events:none}.corner.tl{left:22px;top:62px;border-right:0;border-bottom:0}.corner.tr{right:22px;top:62px;border-left:0;border-bottom:0}.corner.bl{left:22px;bottom:20px;border-right:0;border-top:0}.corner.br{right:22px;bottom:20px;border-left:0;border-top:0}.viewfinder::after{content:"";position:absolute;inset:0;background:#151715;pointer-events:none;opacity:0;z-index:3}.viewfinder.shooting::after{animation:shutter .22s ease-out}@keyframes shutter{0%{opacity:.75}100%{opacity:0}}
+.live-card{position:absolute;left:37px;bottom:22px;width:250px;padding:12px 14px 9px;border:1px solid #84907477;border-radius:3px;background:#e8ebddcc;box-shadow:0 4px 15px #24351a08}.live-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;letter-spacing:.02em}.live-toggle{width:30px;height:30px;display:grid;place-items:center;background:transparent;border:1px solid #98a38a;border-radius:50%;color:#36432d;margin:-4px -4px -4px 0}.live-toggle svg{width:12px;height:12px}.live-canvas{display:block;width:100%;height:58px}.live-caption{font-size:12px;display:flex;justify-content:space-between;gap:10px;color:#637056}.live-caption span:last-child{font-family:monospace;font-size:12px;letter-spacing:.05em}
+.control-panel{background:var(--panel);padding:24px 26px 22px;border-top:1px solid var(--line)}.control-heading{display:flex;align-items:baseline;justify-content:space-between;gap:20px}.control-heading p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}.control-heading p span{color:#d0d5c4}.control-main{display:grid;grid-template-columns:180px minmax(0,1fr) 178px;align-items:center;gap:35px;margin-top:20px}.readout{white-space:nowrap}.readout-line{display:flex;align-items:baseline;gap:8px}.readout output{color:var(--acid);font-size:clamp(40px,4.6vw,61px);letter-spacing:-3px;font-weight:400;line-height:1.1;font-variant-numeric:tabular-nums}.readout .unit{font-size:14px;color:var(--acid)}.duration{display:block;font-size:12px;color:var(--muted);margin-top:9px;font-variant-numeric:tabular-nums}.ruler{position:relative;min-width:0;padding-top:3px}.range-ends{display:flex;justify-content:space-between;font-size:14px;color:#d7ddcb;margin-bottom:1px}.range-ends small{font-size:12px;color:var(--muted);margin-left:7px}.range-wrap{position:relative;height:44px;display:flex;align-items:center}.range-track{position:absolute;inset:20px 0 auto;height:3px;background:#535c47;border-radius:4px;pointer-events:none}.range-track::before{content:"";display:block;width:var(--position,41.666%);height:100%;background:var(--acid)}input[type=range]{position:relative;z-index:1;width:100%;height:44px;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:ew-resize;outline-offset:2px}input[type=range]::-webkit-slider-runnable-track{height:3px;background:transparent}input[type=range]::-moz-range-track{height:3px;background:transparent}input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:19px;height:29px;border:4px solid var(--panel);border-radius:6px;background:var(--acid);box-shadow:0 0 0 1px #deed8699;margin-top:-13px}input[type=range]::-moz-range-thumb{width:11px;height:21px;border:4px solid var(--panel);border-radius:6px;background:var(--acid);box-shadow:0 0 0 1px #deed8699}.ticks{position:absolute;left:9px;right:9px;top:34px;display:flex;justify-content:space-between;pointer-events:none}.ticks i{height:4px;width:1px;background:#727d62}.ticks i:nth-child(4n+1){height:7px;background:#a8b493}.quick-stops{display:flex;justify-content:space-between;gap:6px;margin-top:2px}.quick-stops button{background:transparent;border:1px solid transparent;border-radius:3px;color:#afb9a1;font:12px monospace;min-height:34px;padding:4px 8px}.quick-stops button:hover{color:var(--text);background:#30362a}.quick-stops button[aria-pressed=true]{color:var(--acid);border-color:#68764b;background:#deed8610}.shoot-button{border:1px solid var(--acid);border-radius:3px;min-height:58px;background:var(--acid);color:#26301e;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;transition:background .15s,transform .15s}.shoot-button:hover{background:#eaf4ae}.shoot-button:active{transform:translateY(1px)}.shoot-button svg{height:20px;width:20px}.shoot-hint{font-size:12px;text-align:center;color:var(--muted);margin:9px 0 0}
+.insight-row{padding:16px 26px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:#1b1e19;border-top:1px solid var(--line)}.insight{font-size:15px;line-height:1.7;margin:0}.insight strong{font-weight:500;color:var(--acid)}.subject-controls{display:flex;align-items:center;gap:12px;flex-shrink:0}.subject-label{font-size:12px;color:var(--muted)}.segmented{display:flex;border:1px solid var(--line);border-radius:3px;padding:3px;gap:2px}.segmented button{min-height:34px;font-size:12px;padding:6px 12px;border:0;border-radius:2px;background:transparent;color:#b3bba7}.segmented button[aria-pressed=true]{background:#3c4532;color:var(--text)}.segmented button:hover{color:var(--text)}
+.compare{margin-top:24px;scroll-margin-top:20px}.compare-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.compare-heading h2{font-size:15px;font-weight:500;margin:0}.compare-heading h2 span{color:var(--muted);font-size:12px;font-weight:400;margin-left:12px}.clear-button{color:var(--muted);background:transparent;border:0;font-size:12px;min-height:36px;text-decoration:underline;text-underline-offset:4px}.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.snapshot{margin:0;min-width:0;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--panel)}.snapshot-canvas{display:block;width:100%;aspect-ratio:2.7;background:#d9ddcf}.snapshot figcaption{padding:11px 15px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted)}.snapshot figcaption strong{font-size:17px;font-weight:400;color:var(--acid);font-variant-numeric:tabular-nums}.empty-shot{min-height:120px;aspect-ratio:2.7;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;border:1px dashed #46503b;border-radius:3px;color:#a5af98;font-size:14px;line-height:1.8}.compare-tip{color:var(--muted);font-size:12px;line-height:1.8;margin:10px 0 0}.feedback{font-size:13px;color:var(--acid);line-height:1.8;min-height:0;margin:0}.feedback:not(:empty){margin-top:12px}.compare:focus{outline:none}
+footer{margin-top:24px;padding:19px 0 26px;border-top:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between;gap:20px;color:#9da491;font-size:12px;line-height:1.8}footer>span{letter-spacing:.045em}footer .footer-divider{color:#64705a;margin:0 10px}details{max-width:640px}summary{cursor:pointer;text-align:right;list-style:none;white-space:nowrap}summary::-webkit-details-marker{display:none}summary span{color:var(--acid);display:inline-block;margin-left:12px}details[open] summary span{transform:rotate(45deg)}.about-content{font-size:13px;color:#b5bdac;line-height:1.9;padding-top:13px}.about-content p{margin:0 0 10px}.about-content a{color:var(--acid);text-underline-offset:3px}.noscript-message{background:var(--acid);color:var(--ink);padding:20px;text-align:center}
+@media(min-width:1450px){.viewfinder{height:430px}}
+@media(max-width:1050px){.site-shell{padding:0 3.2%}.control-main{grid-template-columns:150px minmax(0,1fr) 160px;gap:22px}.readout output{font-size:49px}.live-card{width:210px;padding:10px 11px 8px;bottom:20px}.live-canvas{height:47px}.insight-row{gap:12px}.subject-controls{gap:8px}.segmented button{padding:6px 9px}}
+@media(max-width:760px){.site-shell{padding:0 18px}.viewfinder{height:clamp(250px,44vw,330px)}.photo-top{inset:17px 17px auto}.photo-title{font-size:12px}.photo-settings{font-size:12px}.photo-settings span{display:none}.live-card{left:26px;bottom:12px;width:190px;padding:10px 11px 8px}.live-canvas{height:47px}.control-panel{padding:20px 18px}.control-heading{display:block}.control-heading p{font-size:12px}.control-main{grid-template-columns:128px minmax(0,1fr);gap:18px;margin-top:18px}.readout output{font-size:43px;letter-spacing:-2px}.shoot-group{grid-column:1/-1;display:flex;flex-direction:row-reverse;align-items:center;justify-content:space-between;gap:14px;margin-top:3px}.shoot-button{width:180px;min-height:48px}.shoot-hint{margin:0;text-align:left}.insight-row{padding:15px 18px;align-items:flex-start;flex-direction:column;gap:13px}.insight{font-size:14px}.subject-controls{justify-content:space-between;width:100%}.compare-heading h2 span{display:none}.snapshot figcaption{padding:10px;flex-wrap:wrap;gap:5px}.snapshot figcaption strong{font-size:15px}.compare-grid{gap:10px}footer{flex-wrap:wrap}details{margin-left:auto}}
+@media(max-width:480px){.site-shell{padding:0 12px}.viewfinder{height:clamp(225px,53vw,250px)}.corner{width:13px;height:13px}.corner.tl,.corner.bl{left:14px}.corner.tr,.corner.br{right:14px}.photo-top{left:15px;right:15px}.live-card{left:24px;bottom:12px;width:160px}.live-heading{font-size:12px}.live-caption span:last-child{display:none}.live-canvas{height:43px}.control-panel{padding:17px 14px}.control-main{grid-template-columns:96px minmax(0,1fr);gap:13px}.readout output{font-size:34px;letter-spacing:-1.8px}.readout-line{gap:5px}.readout .unit{font-size:12px}.duration{font-size:12px;line-height:1.6;white-space:normal}.range-ends{font-size:12px}.range-ends small{display:none}.quick-stops{gap:0}.quick-stops button{font-size:12px;padding:4px;min-height:34px}.shoot-group{gap:12px}.shoot-button{width:155px;flex-shrink:0;font-size:13px}.shoot-hint{max-width:130px;line-height:1.7}.insight-row{padding:14px}.subject-label{font-size:12px}.segmented button{min-height:36px}.compare-grid{grid-template-columns:1fr}.snapshot-canvas{aspect-ratio:2.7}.snapshot figcaption>span{font-size:12px}.empty-shot{aspect-ratio:3;min-height:100px;font-size:12px;padding:10px}.compare-tip{font-size:12px}footer{margin-top:20px;gap:14px}footer>span{font-size:12px}.footer-divider{display:none}footer>span .footer-copy{display:none}}
+@media(max-width:350px){.live-card{width:146px;left:21px}.control-main{grid-template-columns:84px minmax(0,1fr);gap:10px}.readout output{font-size:30px}.shoot-button{width:147px}.quick-stops button{padding:4px 2px}.subject-controls{gap:5px}.segmented button{padding:6px 8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="site-shell">
+  <h1 class="sr-only">シャッタースピードを体験する</h1>
+  <main>
+    <section class="lab" aria-label="シャッタースピードのシミュレーター">
+      <div class="viewfinder" id="viewfinder">
+        <canvas class="photo" id="photo" role="img" aria-label="右に動くボールの写真。シャッタースピードでブレ方が変わります。">右に動くボールを撮影したときの、被写体ブレを表示します。</canvas>
+        <div class="photo-top"><span class="photo-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h5l2-3h5l2 3h4v13H3z"/><circle cx="12" cy="13" r="4"/></svg>写真の写り方</span><span class="photo-settings"><b id="photo-setting">1/125 s</b><span>PREVIEW</span></span></div>
+        <i class="corner tl" aria-hidden="true"></i><i class="corner tr" aria-hidden="true"></i><i class="corner bl" aria-hidden="true"></i><i class="corner br" aria-hidden="true"></i>
+        <div class="live-card">
+          <div class="live-heading"><span>実際の動き</span><button id="live-toggle" class="live-toggle" type="button" aria-label="動きの見本を一時停止" aria-pressed="false"><svg id="pause-icon" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M2 1h3v10H2zM7 1h3v10H7z"/></svg><svg id="play-icon" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" hidden><path d="m3 1 8 5-8 5z"/></svg></button></div>
+          <canvas class="live-canvas" id="live" aria-hidden="true"></canvas>
+          <div class="live-caption"><span>ボールは右へ移動</span><span>LIVE</span></div>
+        </div>
+      </div>
+      <div class="control-panel">
+        <div class="control-heading"><label class="sr-only" for="shutter">シャッタースピード</label><p>シャッタースピード ＝ <span>光を取り込む時間</span></p></div>
+        <div class="control-main">
+          <div class="readout"><div class="readout-line"><output id="shutter-value" for="shutter" aria-hidden="true">1/125</output><span class="unit">秒</span></div><span class="duration" id="duration" aria-hidden="true">1秒の125分の1</span></div>
+          <div class="ruler">
+            <div class="range-ends"><span>速い<small>短い時間</small></span><span>遅い<small>長い時間</small></span></div>
+            <div class="range-wrap"><div class="range-track" id="range-track" aria-hidden="true"></div><input type="range" id="shutter" min="0" max="11" step="1" value="4" aria-valuetext="125分の1秒" aria-describedby="shutter-help"><div class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="quick-stops" aria-label="シャッタースピードのプリセット"><button type="button" data-stop="1" aria-pressed="false" aria-label="1000分の1秒にする">1/1000</button><button type="button" data-stop="4" aria-pressed="true" aria-label="125分の1秒にする">1/125</button><button type="button" data-stop="8" aria-pressed="false" aria-label="8分の1秒にする">1/8</button><button type="button" data-stop="11" aria-pressed="false" aria-label="1秒にする">1秒</button></div>
+            <span id="shutter-help" class="sr-only">左右に動かして変更。右ほど光を取り込む時間が長くなります。矢印キーでも操作できます。</span>
+          </div>
+          <div class="shoot-group"><button class="shoot-button" id="shoot" type="button" disabled><svg id="shoot-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/></svg><svg id="clear-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" hidden><path d="M5 7a8 8 0 1 1-1 8M5 2v5h5"/></svg><span id="shoot-label">撮ってくらべる</span></button><p class="shoot-hint" id="shoot-hint">2枚撮って、違いを発見。</p></div>
+        </div>
+      </div>
+      <div class="insight-row"><p class="insight" id="insight">短い時間なら、動きが<strong>止まって写る。</strong></p><div class="subject-controls"><span class="subject-label" id="subject-label">ボールの速さ</span><div class="segmented" role="group" aria-labelledby="subject-label"><button type="button" data-motion="0.5" aria-pressed="false">ゆっくり</button><button type="button" data-motion="1" aria-pressed="true">ふつう</button><button type="button" data-motion="2" aria-pressed="false">はやい</button></div></div></div>
+    </section>
+    <p class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"></p>
+    <section class="compare" id="compare" aria-labelledby="compare-title" tabindex="-1" hidden>
+      <div class="compare-heading"><h2 id="compare-title">撮った2枚をくらべる<span>同じボール。時間で変わる写り方。</span></h2><button type="button" id="clear" class="clear-button">クリア</button></div>
+      <div class="compare-grid" id="compare-grid"></div>
+      <p class="compare-tip" id="compare-tip">シャッタースピードを変えて、もう1枚。</p>
+    </section>
+  </main>
+  <footer><span>S / MOTION <span class="footer-divider">—</span><span class="footer-copy">PLAY WITH TIME.</span></span><details><summary>この体験について <span>＋</span></summary><div class="about-content">
+    <p>シャッタースピードは、光を取り込む時間です。1/1000秒は「1000分の1秒」。1/8秒のほうが長く、その間に動いたものは流れて写ります。ボールの速さが同じなら、時間が2倍になるとブレの長さも2倍になります。</p>
+    <p>ボールの位置を少しずつ変えた画像を、時間に沿って重ねるシミュレーションです。一定の速さで右に動くボールを、同じ終了位置で比較します。小窓は動きの見本で、シャッタースピードを変えても見本の動く速さは変わりません。</p>
+    <p>ブレだけを比べられるよう、写真の明るさは自動補正しています。実際は、絞り・ISO感度などが同じなら、長い時間ほど明るく写ります。カメラは固定。手ブレ・回転・ピントによるボケは再現していません。ボールはAI生成の画像素材です。</p>
+    <p>「撮ってくらべる」は画面上の写り方を2枚残します。2枚撮ると比較へ移動し、撮影ボタンが「クリア」に変わります。クリアすると撮り直せます。写真はページを閉じると消えます。端末のカメラは使いません。</p>
+    <p><a href="https://nij.nikon.com/learn/phototech/manual/04/03.html" target="_blank" rel="noopener noreferrer">参考：ニコン「シャッタースピード」</a></p>
+  </div></details></footer>
+</div>
+<noscript><p class="noscript-message">この体験にはJavaScriptが必要です。ブラウザの設定で有効にしてください。</p></noscript>
+<script>
+(() => {
+'use strict';
+// The image path is relative to this HTML file. No external libraries.
+const BALL_SOURCE = './assets/basketball.png';
+const STOPS = [2000,1000,500,250,125,60,30,15,8,4,2,1];
+const MOTION_NAMES = {'0.5':'ゆっくり','1':'ふつう','2':'はやい'};
+const $ = id => document.getElementById(id);
+const canvas = $('photo'), ctx = canvas.getContext('2d');
+const liveCanvas = $('live'), liveCtx = liveCanvas.getContext('2d');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const image = new Image();
+const state = {index:4,motion:1,loaded:false,paused:reducedMotion.matches,shots:[],serial:0};
+let frame = 0, phase = 0.2, lastTime = 0, paintFrame = 0;
+const stopButtons = [...document.querySelectorAll('[data-stop]')];
+const motionButtons = [...document.querySelectorAll('[data-motion]')];
+const sprite = document.createElement('canvas');
+
+const shutterText = index => STOPS[index] === 1 ? '1' : `1/${STOPS[index]}`;
+const spokenTime = index => STOPS[index] === 1 ? '1秒' : `${STOPS[index]}分の1秒`;
+function blurRatio(index,motion) { return (0.3 * motion / STOPS[index]) / 0.18; }
+function effectText(index,motion) {
+  const blur = blurRatio(index,motion);
+  if(blur < 0.06) return ['短い時間なら、動きが','止まって写る。'];
+  if(blur < 0.55) return ['時間を長くすると、動きが','流れはじめる。'];
+  return ['長い時間なら、動きが','線のように流れる。'];
+}
+function prepareSprite() {
+  // The PNG is already cropped with a transparent background.
+  sprite.width=384;sprite.height=384;
+  const c=sprite.getContext('2d');
+  c.drawImage(image,0,0,image.naturalWidth,image.naturalHeight,0,0,384,384);
+}
+const LINEAR = Float64Array.from({length:256},(_,i)=>{
+  const v=i/255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);
+});
+function encoded(v) { return Math.round(255*(v<=.0031308?12.92*v:1.055*Math.pow(v,1/2.4)-.055)); }
+function prefixAt(prefix,x,size) {
+  if(x<=0)return 0;if(x>=size)return prefix[size];
+  const i=Math.floor(x);return prefix[i]+(prefix[i+1]-prefix[i])*(x-i);
+}
+function fitCanvas(el, maxWidth=1600) {
+  const rect=el.getBoundingClientRect();
+  const dpr=Math.min(window.devicePixelRatio||1,2,maxWidth/Math.max(1,rect.width));
+  const width=Math.max(1,Math.round(rect.width*dpr)),height=Math.max(1,Math.round(rect.height*dpr));
+  if(el.width!==width||el.height!==height){el.width=width;el.height=height;}
+}
+function background(c,w,h) {
+  const bg=c.createLinearGradient(0,0,w*.4,h);bg.addColorStop(0,'#edf0e4');bg.addColorStop(.57,'#d9decf');bg.addColorStop(1,'#bdc8b0');
+  c.fillStyle=bg;c.fillRect(0,0,w,h);
+  // A stationary scale makes subject movement visible without moving the camera.
+  c.strokeStyle='#62724b20';c.lineWidth=Math.max(1,w/1400);c.beginPath();c.moveTo(w*.045,h*.64);c.lineTo(w*.955,h*.64);c.stroke();
+  for(let i=0;i<23;i++){const x=w*(.06+i*.04);c.beginPath();c.moveTo(x,h*.64);c.lineTo(x,h*.64+(i%5===0?7:3)*w/1100);c.stroke();}
+}
+function renderPhoto(c,w,h,index,motion) {
+  background(c,w,h);
+  if(!state.loaded)return;
+  // x(t) = .75 - .3 * motion * t in frame-width units. Keep the end position
+  // and subject size identical for every shutter setting and every saved shot.
+  const distance=.3*motion/STOPS[index]*w;
+  const diameter=Math.max(1,Math.round(w*.18)),top=Math.round(h*.37-diameter/2);
+  const source=document.createElement('canvas');source.width=diameter;source.height=diameter;
+  const sc=source.getContext('2d',{willReadFrequently:true});sc.drawImage(sprite,0,0,diameter,diameter);
+  const src=sc.getImageData(0,0,diameter,diameter).data;
+  const layer=document.createElement('canvas');layer.width=w;layer.height=diameter;
+  const lc=layer.getContext('2d');const out=lc.createImageData(w,diameter);
+  const sums=Array.from({length:4},()=>new Float64Array(diameter+1));
+  const left=w*.75-diameter/2;
+  const first=Math.max(0,Math.floor(left-distance-1)),last=Math.min(w,Math.ceil(left+diameter));
+  for(let y=0;y<diameter;y++){
+    sums.forEach(p=>p[0]=0);
+    for(let x=0;x<diameter;x++){
+      const offset=(y*diameter+x)*4,alpha=src[offset+3]/255;
+      for(let k=0;k<3;k++)sums[k][x+1]=sums[k][x]+LINEAR[src[offset+k]]*alpha;
+      sums[3][x+1]=sums[3][x]+alpha;
+    }
+    for(let x=first;x<last;x++){
+      const a=x-left+.5,b=a+distance;
+      const alpha=prefixAt(sums[3],b,diameter)-prefixAt(sums[3],a,diameter);
+      if(alpha<=0)continue;
+      const offset=(y*w+x)*4;
+      for(let k=0;k<3;k++)out.data[offset+k]=encoded((prefixAt(sums[k],b,diameter)-prefixAt(sums[k],a,diameter))/alpha);
+      out.data[offset+3]=Math.round(255*alpha/distance);
+    }
+  }
+  // Float prefix integration avoids opacity rounding and dashed sample trails
+  // at long exposures. Color averaging above is in linear light.
+  lc.putImageData(out,0,0);c.drawImage(layer,0,top);
+}
+function paint() {
+  paintFrame=0;fitCanvas(canvas);renderPhoto(ctx,canvas.width,canvas.height,state.index,state.motion);
+  fitCanvas(liveCanvas,600);drawLive();
+}
+function schedulePaint(){if(!paintFrame)paintFrame=requestAnimationFrame(paint);}
+function syncUI() {
+  const text=shutterText(state.index),denominator=STOPS[state.index];
+  $('shutter-value').textContent=text;$('photo-setting').textContent=`${text} s`;
+  $('duration').textContent=denominator===1?'まるまる1秒':`1秒の${denominator}分の1`;
+  $('shutter').value=String(state.index);$('shutter').setAttribute('aria-valuetext',spokenTime(state.index));
+  $('range-track').style.setProperty('--position',`${state.index/(STOPS.length-1)*100}%`);
+  stopButtons.forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.stop)===state.index)));
+  motionButtons.forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.motion)===state.motion)));
+  const copy=effectText(state.index,state.motion);$('insight').replaceChildren(document.createTextNode(copy[0]));
+  const strong=document.createElement('strong');strong.textContent=copy[1];$('insight').append(strong);
+  canvas.setAttribute('aria-label',`${spokenTime(state.index)}、ボールの速さは${MOTION_NAMES[state.motion]}。${copy.join('')}明るさは自動補正、カメラは固定。`);
+  schedulePaint();
+}
+function drawLive() {
+  const w=liveCanvas.width,h=liveCanvas.height;liveCtx.clearRect(0,0,w,h);
+  if(!state.loaded)return;
+  const d=w*.18,x=phase*w,y=h*.5;
+  liveCtx.strokeStyle='#87987755';liveCtx.lineWidth=1;liveCtx.beginPath();liveCtx.moveTo(0,h*.92);liveCtx.lineTo(w,h*.92);liveCtx.stroke();
+  liveCtx.drawImage(sprite,x-d/2,y-d/2,d,d);
+}
+function tick(time) {
+  frame=0;
+  if(state.paused||document.hidden||!state.loaded){lastTime=0;return;}
+  const delta=lastTime?Math.min((time-lastTime)/1000,.08):0;lastTime=time;
+  phase=(phase+delta*.3*state.motion)%1;drawLive();frame=requestAnimationFrame(tick);
+}
+function syncPlayback() {
+  $('live-toggle').setAttribute('aria-pressed',String(state.paused));
+  $('live-toggle').setAttribute('aria-label',state.paused?'動きの見本を再生':'動きの見本を一時停止');
+  $('pause-icon').toggleAttribute('hidden',state.paused);$('play-icon').toggleAttribute('hidden',!state.paused);
+  if(state.paused||document.hidden){cancelAnimationFrame(frame);frame=0;lastTime=0;}
+  else if(!frame&&state.loaded)frame=requestAnimationFrame(tick);
+  drawLive();
+}
+function renderComparisons() {
+  const grid=$('compare-grid');grid.replaceChildren();$('compare').hidden=state.shots.length===0;
+  for(const shot of state.shots){
+    const figure=document.createElement('figure');figure.className='snapshot';
+    const c=document.createElement('canvas');c.className='snapshot-canvas';c.width=960;c.height=360;c.setAttribute('role','img');
+    c.setAttribute('aria-label',`${shot.serial}枚目。${spokenTime(shot.index)}。ボールの速さ：${MOTION_NAMES[shot.motion]}。${effectText(shot.index,shot.motion).join('')}`);
+    // Keep the same field, framing and subject scale in both saved shots.
+    renderPhoto(c.getContext('2d'),960,360,shot.index,shot.motion);
+    const cap=document.createElement('figcaption'),label=document.createElement('strong'),meta=document.createElement('span');
+    label.textContent=`${shutterText(shot.index)} 秒`;meta.textContent=`${shot.serial}枚目 · ${MOTION_NAMES[shot.motion]}`;cap.append(label,meta);figure.append(c,cap);grid.append(figure);
+  }
+  if(state.shots.length===1){const empty=document.createElement('div');empty.className='empty-shot';empty.textContent='シャッタースピードを変えて、もう1枚。';grid.append(empty);}
+  const complete=state.shots.length===2;
+  $('shoot-label').textContent=complete?'クリア':state.shots.length===1?'もう1枚撮る':'撮ってくらべる';
+  $('shoot-icon').toggleAttribute('hidden',complete);$('clear-icon').toggleAttribute('hidden',!complete);
+  $('shoot-hint').textContent=complete?'クリアして、もう一度。':'2枚撮って、違いを発見。';
+  let tip='シャッタースピードを変えて、もう1枚。';
+  if(state.shots.length===2){const [a,b]=state.shots;
+    if(a.motion!==b.motion)tip='ボールの速さも違う2枚。速さをそろえると、時間だけの違いがわかる。';
+    else if(a.index===b.index)tip='同じ設定の2枚。シャッタースピードを大きく変えて、撮ってみよう。';
+    else tip='ボールの速さは同じ。光を取り込む時間が長いのは、どっち？';
+  }
+  $('compare-tip').textContent=tip;
+}
+$('shutter').addEventListener('input',event=>{state.index=Number(event.target.value);syncUI();});
+stopButtons.forEach(b=>b.addEventListener('click',()=>{state.index=Number(b.dataset.stop);syncUI();}));
+motionButtons.forEach(b=>b.addEventListener('click',()=>{state.motion=Number(b.dataset.motion);syncUI();}));
+$('live-toggle').addEventListener('click',()=>{state.paused=!state.paused;syncPlayback();});
+$('shoot').addEventListener('click',()=>{
+  if(!state.loaded)return;
+  if(state.shots.length===2){clearShots();return;}
+  state.shots.push({index:state.index,motion:state.motion,serial:++state.serial});
+  renderComparisons();$('viewfinder').classList.remove('shooting');void $('viewfinder').offsetWidth;$('viewfinder').classList.add('shooting');
+  $('feedback').textContent=state.shots.length===1?`${spokenTime(state.index)}で1枚目を撮影。設定を変えて、もう1枚。`:`${spokenTime(state.index)}で撮影。2枚を見比べよう。`;
+  if(state.shots.length===2){
+    const compare=$('compare');
+    compare.focus({preventScroll:true});
+    compare.scrollIntoView({behavior:reducedMotion.matches?'instant':'smooth',block:'start'});
+  }
+});
+$('viewfinder').addEventListener('animationend',()=>$('viewfinder').classList.remove('shooting'));
+function clearShots(){
+  state.shots=[];state.serial=0;renderComparisons();
+  $('feedback').textContent='写真をクリアしました。';
+  $('shoot').focus({preventScroll:true});
+  $('shoot').scrollIntoView({behavior:reducedMotion.matches?'instant':'smooth',block:'center'});
+}
+$('clear').addEventListener('click',clearShots);
+document.addEventListener('visibilitychange',syncPlayback);
+reducedMotion.addEventListener('change',event=>{if(event.matches){state.paused=true;syncPlayback();}});
+new ResizeObserver(schedulePaint).observe($('viewfinder'));
+window.addEventListener('resize',schedulePaint);
+image.onload=()=>{
+  try {
+    state.loaded=true;prepareSprite();paint();
+    $('shoot').disabled=false;syncPlayback();
+  } catch(error) {
+    state.loaded=false;$('shoot').disabled=true;
+    if(error.name==='SecurityError' && location.protocol==='file:') {
+      $('feedback').textContent='画像を使った処理のため、ローカルサーバーまたは公開サイトから開いてください。';
+    } else {
+      $('feedback').textContent='画像の処理に失敗しました。ページを開き直してください。';
+    }
+  }
+};
+image.onerror=()=>{$('feedback').textContent='画像を読み込めませんでした。HTMLと同じ階層に assets/basketball.png があるか確認してください。';};
+image.src=BALL_SOURCE;
+syncUI();syncPlayback();
+})();
+</script>
+</body>
+</html>
